@@ -22,7 +22,7 @@ function varargout = exp1(varargin)
 
 % Edit the above text to modify the response to help exp1
 
-% Last Modified by GUIDE v2.5 13-Mar-2017 17:13:35
+% Last Modified by GUIDE v2.5 14-Mar-2017 14:37:35
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -180,6 +180,9 @@ im = evalin('base', 'im');
 im = edgeresponse(im, M, S);
 imshow(im, 'parent', handles.filtered);
 assignin('base', 'im', im);
+%canny
+image = getcanny(handles, im);
+imshow(image, 'Parent', handles.canny);
 
 
 % --- If Enable == 'on', executes on mouse press in 5 pixel border.
@@ -205,6 +208,9 @@ im = evalin('base', 'im');
 im = oldedgeresponse(im, M, S);
 imshow(im, 'parent', handles.filtered);
 assignin('base', 'im', im);
+%canny
+image = getcanny(handles, im);
+imshow(image, 'parent', handles.canny);
 
 
 
@@ -337,3 +343,59 @@ imshow(imoriginal, 'parent', handles.original);
 imoriginal = imcomplement(imoriginal);
 assignin('base', 'imoriginal', imoriginal);
 assignin('base', 'im', imoriginal);
+
+
+
+function lowth_Callback(hObject, eventdata, handles)
+% hObject    handle to lowth (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of lowth as text
+%        str2double(get(hObject,'String')) returns contents of lowth as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function lowth_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to lowth (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+
+function highth_Callback(hObject, eventdata, handles)
+% hObject    handle to highth (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of highth as text
+%        str2double(get(hObject,'String')) returns contents of highth as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function highth_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to highth (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in cannyresp.
+function cannyresp_Callback(hObject, eventdata, handles)
+% hObject    handle to cannyresp (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+im = evalin('base', 'im');
+image = getcanny(handles, im);
+imshow(image, 'parent', handles.canny);
